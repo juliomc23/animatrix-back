@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:oraclelinux8
+    restart: always
+    container_name: mysql
+    environment:
+       MYSQL_DATABASE: ${MYSQL_DB_NAME}
+       MYSQL_USER: ${MYSQL_USERNAME}
+       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "${MYSQL_PORT}:${MYSQL_PORT}"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
