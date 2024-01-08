@@ -4,10 +4,10 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @Column('text')
+  @Column('varchar')
   fullname: string;
-  @Column('text', { unique: true })
+  @Column('varchar', { unique: true })
   email: string;
-  @Column('text')
+  @Column('varchar')
   password: string;
 }
