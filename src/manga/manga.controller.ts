@@ -6,18 +6,23 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { GetUserData } from 'src/auth/decorators/get-user.decorator';
 import { CreateMangaDto } from './dto/create-manga.dto';
 import { UpdateMangaDto } from './dto/update-manga.dto';
 import { MangaService } from './manga.service';
+import { User } from 'src/auth/entities/user.entity';
 
 @Controller('manga')
 export class MangaController {
   constructor(private readonly mangaService: MangaService) {}
 
   @Post()
-  create(@Body() createMangaDto: CreateMangaDto) {
-    return this.mangaService.create(createMangaDto);
+  @UseGuards(AuthGuard())
+  create(@Body() createMangaDto: CreateMangaDto, @GetUserData() user: User) {
+    return this.mangaService.create(createMangaDto, user);
   }
 
   @Get()

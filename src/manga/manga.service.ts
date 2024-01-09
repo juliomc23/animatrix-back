@@ -4,6 +4,7 @@ import { UpdateMangaDto } from './dto/update-manga.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Manga } from './entities/manga.entity';
 import { Repository } from 'typeorm';
+import { User } from 'src/auth/entities/user.entity';
 
 @Injectable()
 export class MangaService {
@@ -12,12 +13,23 @@ export class MangaService {
     private readonly mangaRepository: Repository<Manga>,
   ) {}
 
-  async create(createMangaDto: CreateMangaDto) {
+  async create(createMangaDto: CreateMangaDto, user: User) {
+    try {
+      const manga = this.mangaRepository.create({
+        ...createMangaDto,
+        user,
+      });
+      await this.mangaRepository.save(manga);
+      return manga;
+    } catch (error) {
+      console.log(error);
+    }
+
     return createMangaDto;
   }
 
   findAll() {
-    return `This action returns all manga`;
+    return this.mangaRepository.find();
   }
 
   findOne(id: number) {
