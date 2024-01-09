@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/auth/entities/user.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('mangas')
 export class Manga {
@@ -16,4 +17,6 @@ export class Manga {
   url: string;
   @Column('varchar', { nullable: true })
   comment?: string;
+  @ManyToOne(() => User, (user) => user.mangas)
+  user: User;
 }

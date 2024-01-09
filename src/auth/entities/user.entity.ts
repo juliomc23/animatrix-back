@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Manga } from 'src/manga/entities/manga.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
 export class User {
@@ -10,4 +11,6 @@ export class User {
   email: string;
   @Column('varchar')
   password: string;
+  @OneToMany(() => Manga, (manga) => manga.user)
+  mangas: Manga[];
 }
