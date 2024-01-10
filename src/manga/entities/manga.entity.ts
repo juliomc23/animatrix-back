@@ -7,11 +7,11 @@ export class Manga {
   id: number;
   @Column('varchar')
   name: string;
-  @Column('numeric', { default: 0 })
+  @Column('int', { default: 0 })
   chapter: number;
-  @Column('numeric', { default: 0 })
+  @Column('int', { default: 0 })
   chapterPage: number;
-  @Column('numeric', { nullable: true })
+  @Column('int', { nullable: true })
   nextChapter?: number;
   @Column('varchar')
   url: string;

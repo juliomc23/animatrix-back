@@ -14,6 +14,7 @@ export class MangaService {
   ) {}
 
   async create(createMangaDto: CreateMangaDto, user: User) {
+    console.log(createMangaDto);
     try {
       const manga = this.mangaRepository.create({
         ...createMangaDto,
