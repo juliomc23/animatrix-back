@@ -26,8 +26,8 @@ export class AnimeService {
     }
   }
 
-  findAll() {
-    return `This action returns all anime`;
+  async findAll() {
+    return await this.animeRespository.find();
   }
 
   findOne(id: number) {
