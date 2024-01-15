@@ -1,3 +1,4 @@
+import { Anime } from 'src/anime/entities/anime.entity';
 import { Manga } from 'src/manga/entities/manga.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -13,4 +14,6 @@ export class User {
   password: string;
   @OneToMany(() => Manga, (manga) => manga.user)
   mangas: Manga[];
+  @OneToMany(() => Anime, (anime) => anime.user)
+  animes: Anime[];
 }

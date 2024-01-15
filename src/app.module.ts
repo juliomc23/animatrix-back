@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { MangaModule } from './manga/manga.module';
+import { AnimeModule } from './anime/anime.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { MangaModule } from './manga/manga.module';
     }),
     AuthModule,
     MangaModule,
+    AnimeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
