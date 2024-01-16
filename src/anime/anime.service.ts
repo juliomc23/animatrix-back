@@ -35,10 +35,12 @@ export class AnimeService {
   }
 
   update(id: number, updateAnimeDto: UpdateAnimeDto) {
+    console.log(updateAnimeDto);
     return `This action updates a #${id} anime`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} anime`;
+  async remove(id: number) {
+    const anime = await this.animeRespository.findOneBy({ id });
+    return await this.animeRespository.remove(anime);
   }
 }

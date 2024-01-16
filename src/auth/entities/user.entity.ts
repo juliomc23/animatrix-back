@@ -12,8 +12,8 @@ export class User {
   email: string;
   @Column('varchar')
   password: string;
-  @OneToMany(() => Manga, (manga) => manga.user)
+  @OneToMany(() => Manga, (manga) => manga.user, { onDelete: 'CASCADE' })
   mangas: Manga[];
-  @OneToMany(() => Anime, (anime) => anime.user)
+  @OneToMany(() => Anime, (anime) => anime.user, { onDelete: 'CASCADE' })
   animes: Anime[];
 }

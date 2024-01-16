@@ -40,6 +40,7 @@ export class AnimeController {
     return this.animeService.update(+id, updateAnimeDto);
   }
 
+  @UseGuards(AuthGuard())
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.animeService.remove(+id);
