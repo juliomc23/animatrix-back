@@ -40,6 +40,7 @@ export class MangaController {
     return this.mangaService.update(+id, updateMangaDto);
   }
 
+  @UseGuards(AuthGuard())
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.mangaService.remove(+id);

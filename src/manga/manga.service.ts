@@ -40,7 +40,8 @@ export class MangaService {
     return { id, updateMangaDto };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} manga`;
+  async remove(id: number) {
+    const manga = await this.mangaRepository.findOneBy({ id });
+    return await this.mangaRepository.remove(manga);
   }
 }
