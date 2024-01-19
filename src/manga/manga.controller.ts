@@ -26,8 +26,9 @@ export class MangaController {
   }
 
   @Get()
-  findAll() {
-    return this.mangaService.findAll();
+  @UseGuards(AuthGuard())
+  findAll(@GetUserData('id') id: string) {
+    return this.mangaService.findAllMangasByUserId(id);
   }
 
   @Get(':id')

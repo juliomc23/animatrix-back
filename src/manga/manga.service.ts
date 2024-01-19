@@ -28,8 +28,8 @@ export class MangaService {
     return createMangaDto;
   }
 
-  findAll() {
-    return this.mangaRepository.find();
+  async findAllMangasByUserId(id: string) {
+    return await this.mangaRepository.find({ where: { user: { id } } });
   }
 
   findOne(id: number) {
