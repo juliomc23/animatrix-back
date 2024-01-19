@@ -26,8 +26,9 @@ export class AnimeController {
   }
 
   @Get()
-  findAll() {
-    return this.animeService.findAll();
+  @UseGuards(AuthGuard())
+  findAll(@GetUserData('id') id: string) {
+    return this.animeService.findAllAnimesByUserId(id);
   }
 
   @Get(':id')

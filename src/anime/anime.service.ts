@@ -26,8 +26,8 @@ export class AnimeService {
     }
   }
 
-  async findAll() {
-    return await this.animeRespository.find();
+  async findAllAnimesByUserId(id: string) {
+    return await this.animeRespository.find({ where: { user: { id } } });
   }
 
   findOne(id: number) {
