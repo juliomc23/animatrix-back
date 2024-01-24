@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMangaDto } from './dto/create-manga.dto';
 import { UpdateMangaDto } from './dto/update-manga.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -32,12 +32,20 @@ export class MangaService {
     return await this.mangaRepository.find({ where: { user: { id } } });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} manga`;
+  async findOne(id: number) {
+    const manga = await this.mangaRepository.findOneBy({ id });
+    if (!manga) throw new NotFoundException('Manga not found');
+
+    return manga;
   }
 
-  update(id: number, updateMangaDto: UpdateMangaDto) {
-    return { id, updateMangaDto };
+  async update(id: number, updateMangaDto: UpdateMangaDto) {
+    const manga = await this.mangaRepository.preload({
+      id,
+      ...updateMangaDto,
+    });
+    if (!manga) throw new NotFoundException('Manga not found');
+    return this.mangaRepository.save(manga);
   }
 
   async remove(id: number) {

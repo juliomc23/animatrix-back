@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAnimeDto } from './dto/create-anime.dto';
 import { UpdateAnimeDto } from './dto/update-anime.dto';
 import { User } from 'src/auth/entities/user.entity';
@@ -30,17 +30,25 @@ export class AnimeService {
     return await this.animeRespository.find({ where: { user: { id } } });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} anime`;
+  async findOne(id: number) {
+    const anime = await this.animeRespository.findOneBy({ id });
+
+    if (!anime) {
+      throw new NotFoundException('Anime not found');
+    }
+    return anime;
   }
 
-  update(id: number, updateAnimeDto: UpdateAnimeDto) {
-    console.log(updateAnimeDto);
-    return `This action updates a #${id} anime`;
+  async update(id: number, updateAnimeDto: UpdateAnimeDto) {
+    const updatedAnime = await this.animeRespository.preload({
+      id,
+      ...updateAnimeDto,
+    });
+    return await this.animeRespository.save(updatedAnime);
   }
 
   async remove(id: number) {
-    const anime = await this.animeRespository.findOneBy({ id });
+    const anime = await this.findOne(id);
     return await this.animeRespository.remove(anime);
   }
 }
